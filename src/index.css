@@ -400,6 +400,13 @@ h2 {
 }
 
 
+.deadline-list .link-btn {
+  display: block;
+  margin: 4px 0 0;
+  padding: 0;
+}
+
+
 @media all and (min-width: 1081px) {
   .deadline-mobile {
     display: none;
