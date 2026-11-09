@@ -1,0 +1,475 @@
+:root {
+  --bg: #0a1a07;
+  --surface: #14260f;
+  --text: #f1eee3;
+  --muted: #8fa08a;
+  --line: #f1eee3;
+  --font-serif: "Instrument Serif", serif;
+  --font-sans: "Manrope", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-weight: 300;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ===== layout utama ===== */
+.app {
+  min-height: 100vh;
+  padding: 32px 60px;
+}
+
+.brand {
+  display: inline-block;
+  font-family: var(--font-serif);
+  line-height: 1;
+  color: var(--text);
+  text-decoration: none;
+}
+.brand small {
+  display: block;
+  font-style: italic;
+  font-size: 16px;
+}
+.brand span {
+  font-size: 32px;
+}
+
+.hero {
+  text-align: center;
+  margin: 16px 0 56px;
+  font-family: var(--font-serif);
+}
+.hero em {
+  display: block;
+  font-size: 28px;
+}
+.hero h1 {
+  font-size: 72px;
+  line-height: 1;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 640px) 240px;
+  justify-content: center;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ===== sidebar ===== */
+.side-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 32px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.quick-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px 24px 0;
+}
+.quick-nav a {
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.6;
+}
+.quick-nav a:hover {
+  opacity: 1;
+}
+.quick-nav a.active {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.deadline-list {
+  margin: 24px 0 0;
+  padding-left: 24px;
+  display: grid;
+  gap: 16px;
+}
+.deadline-date {
+  display: block;
+}
+
+.log-card {
+  border: 1px solid var(--line);
+  padding: 32px;
+}
+.card-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 34px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.card-date {
+  color: var(--muted);
+  margin: 12px 0 4px;
+}
+.card-progress {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.link-btn:hover {
+  color: var(--text);
+}
+
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  background: #fff;
+  color: #000;
+  padding: 24px;
+  min-width: 320px;
+}
+
+.add-bar {
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  margin-top: 32px;
+  padding: 0 16px;
+}
+.add-bar:focus-within {
+  outline: 1px solid var(--muted);
+}
+.add-bar input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font: inherit;
+  padding: 14px 0;
+}
+.add-bar input::placeholder {
+  color: var(--muted);
+}
+.add-bar-btn {
+  display: flex;
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.add-bar-btn:hover {
+  color: var(--text);
+}
+
+/* ===== item log ===== */
+.log-list,
+.sub-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+.sub-list {
+  margin-top: 8px;
+  padding-left: 20px;
+  gap: 8px;
+}
+
+.log-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 16px;
+  background: var(--surface);
+}
+.is-sub .log-row {
+  min-height: 48px;
+}
+
+
+.log-item:not(.is-sub) > .log-row::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+
+.log-text {
+  flex: 1;
+}
+.log-text.done {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--muted);
+  cursor: pointer;
+}
+.dot-done {
+  background: var(--text);
+}
+
+.more-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--text);
+  font-size: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.log-menu {
+  display: flex;
+  gap: 4px;
+  width: fit-content;
+  margin-left: auto;
+  padding: 6px 8px;
+  background: var(--surface);
+}
+.log-menu button {
+  display: flex;
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--text);
+  cursor: pointer;
+}
+.log-menu button:hover {
+  color: var(--muted);
+}
+
+.log-edit,
+.sub-form {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+}
+.sub-form {
+  margin: 8px 0 0 20px;
+  padding: 0 16px;
+  background: var(--surface);
+}
+.inline-input {
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--muted);
+  outline: none;
+  color: var(--text);
+  font: inherit;
+  padding: 12px 0;
+}
+.sub-form .inline-input {
+  border-bottom: none;
+}
+
+/* ===== modal ===== */
+.modal {
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+  color: var(--bg);
+  padding: 48px 40px 40px;
+  margin: 0 24px;
+}
+.modal-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.modal-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--bg);
+}
+.modal-field input,
+.modal-field select {
+  flex: 1;
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  appearance: none;
+  color: var(--bg);
+  color-scheme: light;
+  font: inherit;
+  padding: 14px 0;
+}
+.modal-field input::placeholder {
+  color: #8a8a8a;
+}
+.chevron {
+  position: absolute;
+  right: 0;
+  display: flex;
+}
+.modal-actions {
+  display: flex;
+  gap: 8px;
+}
+.modal-actions button {
+  display: flex;
+  background: none;
+  border: none;
+  padding: 2px;
+  color: var(--bg);
+  cursor: pointer;
+}
+.modal-actions button:hover {
+  opacity: 0.6;
+}
+
+/* ===== halaman riwayat & grafik ===== */
+.log-card h3 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  margin: 28px 0 10px;
+}
+.log-card section ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.log-card section li {
+  background: var(--surface);
+  padding: 12px 16px;
+}
+.log-card small {
+  color: var(--muted);
+}
+
+
+@media all and (min-width: 1081px) {
+  .deadline-mobile {
+    display: none;
+  }
+}
+
+@media all and (max-width: 1080px) {
+  .deadline-desktop {
+    display: none;
+  }
+
+  .deadline-mobile {
+    margin-bottom: 54px;
+  }
+
+  .layout {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .log-card {
+    width: 70%;
+    margin-left: 24px;
+  }
+
+  .app {
+    padding: 32px;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .side-title {
+    font-size: 24px;
+  }
+
+  .layout {
+    flex-direction: column;
+  }
+
+  .aside-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    width: 100%;
+  }
+
+  .deadline-mobile {
+    margin-bottom: 0;
+  }
+
+  .deadline-mobile,
+  .aside-left {
+    width: 50%;
+  }
+
+  .log-card {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .quick-nav {
+    padding: 12px;
+  }
+
+  .deadline-list li,
+  .quick-nav a {
+    font-size: 14px;
+  }
+
+  .hero {
+    margin-top: 48px;
+  }
+}
