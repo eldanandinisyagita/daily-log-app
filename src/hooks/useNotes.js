@@ -11,7 +11,7 @@ function useNotes() {
   }, [notes]);
 
   function addNote(text, deadline) {
-    setNotes([...notes, { id: Date.now(), type: "note", text, deadline }]);
+    setNotes([...notes, { id: Date.now(), type: "note", title, text, deadline }]);
   }
 
   function deleteNote(id) {

@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronIcon, PlusCircleIcon, CheckCircleIcon } from "../components/icons";
+import { ChevronIcon, PlusCircleIcon, CheckCircleIcon } from "./icons";
 
 function AddActivityModal({ onClose, onAddLog, onAddNote }) {
   const [type, setType] = useState("log");
+  const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [deadline, setDeadline] = useState("");
   const textRef = useRef(null);
+  const titleRef = useRef(null);
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -17,21 +19,22 @@ function AddActivityModal({ onClose, onAddLog, onAddNote }) {
   }, [onClose]);
 
   function save(closeAfter) {
-    if (text.trim() === "") return;
-
     if (type === "log") {
+      if (text.trim() === "") return;
       onAddLog(text);
     } else {
-      if (deadline === "") return;
-      onAddNote(text, deadline);
+      if (title.trim() === "" || deadline === "") return;
+      onAddNote(title, text, deadline);
     }
 
     if (closeAfter) {
       onClose();
     } else {
+      setTitle("");
       setText("");
       setDeadline("");
-      textRef.current.focus();
+      const target = type === "note" ? titleRef : textRef;
+      target.current.focus();
     }
   }
 
@@ -57,13 +60,23 @@ function AddActivityModal({ onClose, onAddLog, onAddNote }) {
           </div>
 
           {type === "note" && (
-            <div className="modal-field">
-              <input
-                type="date"
-                value={deadline}
-                onChange={(e) => setDeadline(e.target.value)}
-              />
-            </div>
+            <>
+              <div className="modal-field">
+                <input
+                  type="date"
+                  value={deadline}
+                  onChange={(e) => setDeadline(e.target.value)}
+                />
+              </div>
+              <div className="modal-field">
+                <input
+                  ref={titleRef}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Add heading"
+                />
+              </div>
+            </>
           )}
 
           <div className="modal-field">

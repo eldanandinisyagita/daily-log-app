@@ -407,6 +407,21 @@ h2 {
 }
 
 
+
+.deadline-title,
+.deadline-text {
+  display: block;
+}
+.deadline-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 22px;
+}
+.deadline-text {
+  color: var(--muted);
+}
+
+
 @media all and (min-width: 1081px) {
   .deadline-mobile {
     display: none;

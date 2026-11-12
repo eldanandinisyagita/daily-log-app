@@ -19,13 +19,14 @@ function DeadlineNotes({ className = ""}) {
       )}
       <ul className="deadline-list">
         {sortedNotes.map((note) => (
-          <li key={note.id}>
-            <span className="deadline-date">{formatDate(note.deadline)}</span>
-            {note.text}
-            <button className="link-btn" onClick={() => deleteNote(note.id)}>
-              hapus
-            </button>
-          </li>
+        <li key={note.id}>
+          <span className="deadline-date">{formatDate(note.deadline)}</span>
+          {note.title && <strong className="deadline-title">{note.title}</strong>}
+          {note.text && <span className="deadline-text">{note.text}</span>}
+          <button className="link-btn" onClick={() => deleteNote(note.id)}>
+            hapus
+          </button>
+        </li>
         ))}
       </ul>
     </aside>
